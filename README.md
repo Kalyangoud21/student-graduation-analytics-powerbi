@@ -39,7 +39,6 @@ Graduation readiness is categorized into:
 **Validation:** SQL reconciliation and Power BI cross-validation  
 **Version Control / Portfolio:** GitHub
 
-## Power BI Dashboard
 ## Dashboard Preview
 
 ### Academic Readiness Overview
@@ -89,6 +88,48 @@ The Student Search slicer dynamically limits available students based on the act
 Users can drill through from school-level visuals on the Academic Readiness Overview to the Student Detail Report.
 
 The selected school context is passed automatically to the detail page, allowing users to investigate the students contributing to that school's graduation-readiness metrics.
+
+## Data Model
+
+The Power BI semantic model follows a star-schema design centered on
+`FactGraduationReadiness`.
+
+- `DimStudent` provides student attributes.
+- `DimSchool` provides school, school type, and regional attributes.
+- `DimDate` supports date-based analysis.
+- `FactGraduationReadiness` contains GPA, credits, attendance, grade level,
+  and graduation-readiness metrics.
+- `_Measures` centralizes reusable DAX measures.
+
+![Power BI Data Model](docs/data-model.png)
+
+## Key DAX Measures
+
+The report includes reusable measures for:
+Total Students
+
+- On Track Students
+- Moderate Risk Students
+- High Risk Students
+- On Track %
+- Moderate Risk %
+- High Risk %
+- Average GPA
+- Average Attendance %
+- Dynamic Student Search availability
+
+Full measure documentation is available here: ![View DAX Measures](dax/measures.md)
+
+## SQL Development
+
+SQL Server was used for relational data preparation, synthetic portfolio data generation, views, aggregation and validation.
+The repository includes scripts for:
+- Creating the relational tables
+- Generating reproducible synthetic portfolio data
+- Creating analytical views
+- Reconciling SQL results against Power BI
+
+  View SQL Scripts here: ![SQL Scripts](sql)
 
 ## Data Validation
 
@@ -171,6 +212,7 @@ student-graduation-analytics-powerbi/
 This project demonstrates hands-on experience with:
 
 **SQL Server • T-SQL • Power BI • DAX • Power Query • Data Modeling • Star Schema • KPI Development • Data Validation • Data Quality • Drill-Through Reporting • Conditional Formatting • Interactive Dashboard Design • Business Intelligence**
+
 
 ## Data Privacy
 
