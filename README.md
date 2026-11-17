@@ -1,1 +1,1 @@
-# student-graduation-analytics-powerbi
+# End-to-end Power BI analytics portfolio project using SQL Server and synthetic education data to analyze graduation readiness, academic risk, attendance, GPA, and school-level performance across 500K students.
