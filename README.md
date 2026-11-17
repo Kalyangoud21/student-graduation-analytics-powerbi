@@ -40,6 +40,15 @@ Graduation readiness is categorized into:
 **Version Control / Portfolio:** GitHub
 
 ## Power BI Dashboard
+## Dashboard Preview
+
+### Academic Readiness Overview
+
+![Academic Readiness Overview](screenshots/academic-readiness-overview.png)
+
+### Student Detail Report
+
+![Student Detail Report](screenshots/student-detail-report.png)
 
 ### Academic Readiness Overview
 
