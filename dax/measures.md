@@ -260,6 +260,42 @@ Additional SQL validation was performed for:
 
 ---
 
+## Dynamic Row-Level Security (RLS)
+
+The Power BI semantic model implements dynamic Region-based Row-Level Security using a `UserSecurity` mapping table.
+
+### Security Role
+
+**Role Name:** `RegionalManager`
+
+**Table:** `UserSecurity`
+
+**RLS Filter Expression:**
+
+```DAX
+UserSecurity[UserEmail] = USERPRINCIPALNAME()
+```
+
+### Security Filter Propagation
+
+The security filter propagates through the following relationships:
+
+`UserSecurity → DimSchool → FactGraduationReadiness`
+
+This restricts graduation-readiness metrics, school-level analysis, and student-level records to the user's authorized region.
+
+### RLS Validation Results
+
+| Test User | Authorized Region | Result |
+|---|---|---|
+| north.manager@demo.com | North | Passed |
+| south.manager@demo.com | South | Passed |
+| unauthorized.user@demo.com | None | No data returned |
+
+Additional validation confirmed that school-level drill-through respects the regional security restrictions.
+
+**Note:** All user accounts are synthetic and used only for portfolio demonstration. The RLS expression is a model security-role filter, not a regular DAX measure.
+
 ## Portfolio Disclaimer
 
 **Synthetic data only — no real student or school records are used.**
