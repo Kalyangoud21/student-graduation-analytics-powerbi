@@ -103,6 +103,36 @@ The Power BI semantic model follows a star-schema design centered on
 
 ![Power BI Data Model](docs/data-model.png)
 
+## Dynamic Row-Level Security (RLS)
+
+Implemented dynamic Row-Level Security (RLS) in Power BI to restrict student and school analytics based on authorized geographic regions.
+
+The security implementation uses:
+
+- `UserSecurity` mapping table containing user email addresses and assigned regions.
+- `USERPRINCIPALNAME()` to identify the current user.
+- A `RegionalManager` security role.
+- One-to-many relationships to propagate security filters from `UserSecurity` through `DimSchool` to `FactGraduationReadiness`.
+- Consistent security filtering across the Academic Readiness Overview and Student Detail Report.
+
+**RLS DAX Expression:**
+
+```DAX
+UserSecurity[UserEmail] = USERPRINCIPALNAME()
+```
+
+### RLS Validation
+
+| Test Scenario | Expected Behavior | Result |
+|---|---|---|
+| North Region Manager | Access to North-region data only | Passed |
+| South Region Manager | Access to South-region data only | Passed |
+| Unauthorized User | No access to student or school data | Passed |
+| School Drill-Through | Only authorized school and student records | Passed |
+
+The implementation was tested using Power BI Desktop's **View as** functionality.
+
+All user identities used in this project are synthetic demonstration accounts.
 ## Key DAX Measures
 
 The report includes reusable measures for:
